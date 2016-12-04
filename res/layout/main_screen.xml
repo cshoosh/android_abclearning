@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    tools:ignore="ContentDescription,RtlHardcoded">
+
+    <ImageView
+        android:id="@+id/imgLeaves"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"        
+        android:src="@drawable/leaves_rp"
+         />
+	
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+       
+	    <ImageView
+	        android:id="@+id/imgElephant"
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:layout_marginRight="-30dp" 
+	        android:layout_gravity="bottom"/>
+	    
+	     <TextView
+	        android:id="@+id/txtABC"
+	        android:lineSpacingExtra="0dp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        
+	        android:shadowRadius="4"
+	        android:shadowColor="#333"
+	        android:shadowDx="2"
+	        android:shadowDy="2"
+	        
+	        android:text="@string/abc"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textColor="#fff"
+	        android:textSize="196sp" />
+	     
+	      <ImageView
+	        android:layout_gravity="bottom"
+	        android:id="@+id/imgBear"
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:layout_marginLeft="-40dp"
+	        android:scaleX="-1" />
+    </LinearLayout>
+	
+     <ImageView
+        android:id="@+id/imgGrass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/grass_rp" />
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp">
+    
+	    <TextView
+	        android:id="@+id/txtAlphabet"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:rotation="-5"
+	        android:focusable="true"
+	        android:padding="20dp"
+	        
+	        android:background="@drawable/button_1"
+	        android:text="@string/alphabets"
+	        android:textColor="@color/button_text_color"
+	        android:textSize="18sp" />
+	
+	    <TextView
+	        android:id="@+id/txtGames"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:rotation="5"
+	        android:focusableInTouchMode="true"
+	        android:padding="20dp"
+	       
+	       	android:layout_marginLeft="30dp"
+	        android:layout_marginRight="30dp"
+	        
+	        android:background="@drawable/button_3"
+	        android:text="@string/games"
+	        android:textColor="@color/button_text_color"
+        android:textSize="18sp" />
+        
+	    <TextView
+	        android:id="@+id/txtSettings"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:rotation="8"
+	        android:focusable="true"
+	        android:padding="20dp"
+	       	        
+	        android:background="@drawable/button_2"
+	        android:text="@string/settings"
+	        android:textColor="@color/button_text_color"
+	        android:textSize="18sp" />
+    	</LinearLayout>
+    	
+   		<com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+</RelativeLayout>

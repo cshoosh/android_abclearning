@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:ignore="ContentDescription">
+
+    <CheckBox android:id="@+id/chkMusic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:textColor="#9fd900"
+        android:textSize="24sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        
+        android:text="@string/enable_music"
+        android:button="@drawable/checkbox"/>
+	
+    <ImageView	android:id="@+id/imgMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:padding="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/exit_bg"
+        android:src="@drawable/more"/>
+	<ImageView	android:id="@+id/imgFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:padding="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/exit_bg"
+        android:src="@drawable/feedback"/>
+	
+</LinearLayout>

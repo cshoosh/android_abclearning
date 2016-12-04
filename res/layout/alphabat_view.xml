@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:letterview="http://schemas.android.com/apk/res/en.com.zerotwoone.abclearning" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    tools:context=".FullScreenActivity" >
+	<RelativeLayout android:layout_weight="0.5"
+	    android:id="@+id/letterViewParentContainer"
+	    android:layout_height="match_parent"
+	    android:layout_width="0dp">
+	        <com.zerotwoone.talkingabc.letters.LetterViewParent
+	            android:id="@+id/letterViewParent"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:background="@drawable/a_wave"
+	            />
+
+	        <TextView
+	            android:id="@+id/txtAnimalName"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentBottom="true"
+	            android:layout_alignParentStart="true"
+	            android:layout_alignParentLeft="true"
+	            android:layout_marginStart="15dp"
+	            android:layout_marginLeft="15dp"
+	            android:layout_marginBottom="15dp"
+	            
+	            android:textColor="#fff"
+	            android:text="Alligator"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	</RelativeLayout>
+	<LinearLayout android:layout_weight="0.5"
+	    
+	    android:gravity="center"
+	    android:orientation="vertical"
+	    android:layout_height="match_parent"
+	    android:layout_width="0dp">
+	        
+	            <LinearLayout android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="0.1428"
+	                android:orientation="horizontal"
+	                android:gravity="center_horizontal">
+	                <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterA"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter="A"
+		                letterview:letter_bg="@drawable/a_wave"
+		                letterview:letter_gradient="@color/purple"/>
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterB"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter="B"
+		                letterview:letter_animation="Square"
+		                letterview:letter_bg="@drawable/b_wave"
+		                letterview:letter_gradient="@color/sky_green"/>
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterC"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/purple_pink"
+		                letterview:letter="C"
+		                letterview:letter_bg="@drawable/c_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterD"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/light_orange"
+		                letterview:letter="D"
+		                letterview:letter_bg="@drawable/d_wave" />
+	            </LinearLayout>
+				<LinearLayout android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="0.1428"
+	                android:orientation="horizontal"
+	                android:gravity="center_horizontal">
+	                <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterE"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/baby_green"
+		                letterview:letter="E"
+		                letterview:letter_bg="@drawable/e_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterF"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/dark_orange"
+		                letterview:letter="F"
+		                letterview:letter_bg="@drawable/f_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterG"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/navy_blue"
+		                letterview:letter="G"
+		                letterview:letter_bg="@drawable/g_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterH"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/coral_red"
+		                letterview:letter="H"
+		                letterview:letter_bg="@drawable/h_wave" />
+	            </LinearLayout>
+	            <LinearLayout android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="0.1428"
+	                android:orientation="horizontal"
+	                android:gravity="center_horizontal">
+	                <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterI"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/sky_blue"
+		                letterview:letter="I"
+		                letterview:letter_bg="@drawable/i_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterJ"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/biege"
+		                letterview:letter="J"
+		                letterview:letter_bg="@drawable/j_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterK"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/sky_green"
+		                letterview:letter="K"
+		                letterview:letter_bg="@drawable/k_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterL"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/ferozee"
+		                letterview:letter="L"
+		                letterview:letter_bg="@drawable/l_wave" />
+	            </LinearLayout>
+	            <LinearLayout android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="0.1428"
+	                android:orientation="horizontal"
+	                android:gravity="center_horizontal">
+	                <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterM"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/purple_pink"
+		                letterview:letter="M"
+		                letterview:letter_bg="@drawable/m_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterN"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/rosered"
+		                letterview:letter="N"
+		                letterview:letter_bg="@drawable/n_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterO"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/sky_blue"
+		                letterview:letter="O"
+		                letterview:letter_bg="@drawable/o_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterP"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/navy_blue"
+		                letterview:letter="P"
+		                letterview:letter_bg="@drawable/p_wave" />
+	            </LinearLayout>
+	            <LinearLayout android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="0.1428"
+	                android:orientation="horizontal"
+	                android:gravity="center_horizontal">
+	                <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterQ"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/baby_green"
+		                letterview:letter="Q"
+		                letterview:letter_bg="@drawable/q_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterR"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/dark_orange"
+		                letterview:letter="R"
+		                letterview:letter_bg="@drawable/r_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterS"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/coral_red"
+		                letterview:letter="S"
+		                letterview:letter_bg="@drawable/s_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterT"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/cream_yellow"
+		                letterview:letter="T"
+		                letterview:letter_bg="@drawable/t_wave" />
+	            </LinearLayout>
+	            <LinearLayout android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="0.1428"
+	                android:orientation="horizontal"
+	                android:gravity="center_horizontal">
+	                <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterU"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/ferozee"
+		                letterview:letter="U"
+		                letterview:letter_bg="@drawable/u_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterV"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/purple"
+		                letterview:letter="V"
+		                letterview:letter_bg="@drawable/v_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterW"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/baby_green"
+		                letterview:letter="W"
+		                letterview:letter_bg="@drawable/w_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterX"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/ferozee"
+		                letterview:letter="X"
+		                letterview:letter_bg="@drawable/x_wave" />
+	            </LinearLayout>
+	            <LinearLayout android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="0.1428"
+	                android:orientation="horizontal"
+	                android:gravity="center_horizontal">
+	                <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterY"
+		                android:layout_width="0dp"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/sky_green"
+		                letterview:letter="Y"
+		                letterview:letter_bg="@drawable/y_wave" />
+	
+		            <com.zerotwoone.talkingabc.letters.LetterView
+		                android:id="@+id/imgLetterZ"
+		                android:layout_width="0dp"
+		                letterview:letter="Z"
+		                android:layout_height="match_parent"
+		                android:layout_weight="0.25"
+		                letterview:letter_gradient="@color/sky_blue"
+		                letterview:letter_bg="@drawable/z_wave" />
+	            </LinearLayout>
+	</LinearLayout>
+</LinearLayout>

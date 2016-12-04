@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="letterview">
+	    <attr name="letter" format="string"/>
+	    <attr name="letter_bg" format="reference"/>
+	    <attr name="letter_gradient" format="reference"/>
+	    <attr name="letter_animation" format="enum">
+	        <enum name="Circle" value="0"/>
+	        <enum name="Line" value="1"/>
+	        <enum name="Square" value="2"/>
+	        <enum name="ZigZag" value="3"/>
+	        <enum name="Check" value="4"/>
+	        <enum name="Spot" value="5"/>
+	    </attr>
+	</declare-styleable>
+</resources>
