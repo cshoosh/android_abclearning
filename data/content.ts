@@ -18,4 +18,7 @@ export const activities = [
   {id:'colors',title:'Colors & Shapes',subtitle:'See, say and play',emoji:'🎨',color:'#F49CC4',route:'/colors-shapes'},
   {id:'games',title:'Mini Games',subtitle:'Three playful games',emoji:'🎈',color:'#91C8F7',route:'/games'},
   {id:'stickers',title:'Sticker Book',subtitle:'Your animal friends',emoji:'⭐',color:'#A8D881',route:'/stickers'},
+  {id:'counting',title:'Count & Feed',subtitle:'Feed a hungry friend',emoji:'🍎',color:'#FFD17A',route:'/counting'},
+  {id:'animal-homes',title:'Animal Homes',subtitle:'Find where friends live',emoji:'🏡',color:'#B8E8D1',route:'/animal-homes'},
+  {id:'memory',title:'Memory Match',subtitle:'Find the animal twins',emoji:'🃏',color:'#D9C6FF',route:'/memory'},
 ];

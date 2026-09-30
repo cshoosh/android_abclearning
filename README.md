@@ -29,7 +29,7 @@ npm test
 
 ## Activities
 
-ABC lessons A–Z, generous finger tracing, 16 animal cards, find-the-letter, letter/animal matching, colors and shapes, three mini-game modes, local stars/stickers, and parent progress/settings. Free access includes A–F, six animals, limited tracing, one mini game and a starter sticker set. The Premium mock opens the rest on the current device.
+ABC lessons A–Z, generous finger tracing, 16 animal cards, find-the-letter, letter/animal matching, colors and shapes, three mini-game modes, Count & Feed, Animal Homes, Memory Match, local stars/stickers, and parent progress/settings. The three new short activities are available offline; the existing free/premium limits still apply to alphabet, tracing, animals, mini-game modes, and stickers. The Premium mock opens locked content on this device. See [the interactivity research note](docs/INTERACTIVITY_RESEARCH.md) for the design rationale.
 
 ## Android and tablet
 
