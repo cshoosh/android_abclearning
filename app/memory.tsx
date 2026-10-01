@@ -1,9 +1,16 @@
+import { Text } from '../components/AppText';
 import React, { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
-import { BigButton, Header, Screen } from '../components/ui';
+import { Pressable, View, useWindowDimensions } from 'react-native';
+import { BigButton, Header, Screen, WrongAnswerMessage } from '../components/ui';
 import { memoryAnimals } from '../data/playActivities';
 import { useAppStore } from '../store/useAppStore';
 import { speak } from '../services/audio';
+import { playUiSound } from '../services/uiSoundEvents';
+import { useWrongAnswerFeedback } from '../hooks/useWrongAnswerFeedback';
+import Animated, { FadeInUp, ZoomIn, BounceIn, LinearTransition } from 'react-native-reanimated';
+import { translateText } from '../localization';
+import { AnimalSoundPlayback } from '../components/AnimalSoundPlayback';
+import { AnimalIllustration } from '../components/AnimalIllustration';
 
 type MemoryCard = { id: string; pair: string; name: string; emoji: string };
 const PAIR_COUNTS = [2, 3, 4] as const;
@@ -25,15 +32,20 @@ function createDeck(round: number): MemoryCard[] {
 }
 
 export default function Memory() {
+  const { width, height } = useWindowDimensions();
+  const landscape = width > height;
   const state = useAppStore();
   const [round, setRound] = useState(0);
   const [deck, setDeck] = useState(() => createDeck(0));
   const [open, setOpen] = useState<string[]>([]);
   const [matched, setMatched] = useState<string[]>([]);
   const [finished, setFinished] = useState(false);
+  const [soundRequest, setSoundRequest] = useState<{ animalName: string; key: number } | null>(null);
+  const { message, showWrongAnswer } = useWrongAnswerFeedback(state.voice, state.language);
 
   function flip(card: MemoryCard) {
     if (finished || matched.includes(card.id) || open.includes(card.id)) return;
+    playUiSound('pop');
     const nextOpen = open.length === 2 ? [card.id] : [...open, card.id];
     setOpen(nextOpen);
     if (nextOpen.length !== 2) return;
@@ -42,14 +54,17 @@ export default function Memory() {
     if (first?.pair === card.pair) {
       const nextMatched = [...matched, ...nextOpen];
       setMatched(nextMatched);
-      speak(`You found the ${card.name} twins!`, state.voice);
+      setSoundRequest(current => ({ animalName: card.name, key: (current?.key ?? 0) + 1 }));
+      if (nextMatched.length < deck.length) playUiSound('success');
+      speak(`You found the ${card.name} twins!`, state.voice, state.language);
       if (nextMatched.length === deck.length) {
         setFinished(true);
-        state.reward('memory-match');
-        speak('You found every animal pair!', state.voice);
+        state.reward('memory-match', card.name);
+        speak('You found every animal pair!', state.voice, state.language);
       }
     } else {
-      speak('Two different friends. Try again!', state.voice);
+      setSoundRequest(null);
+      showWrongAnswer();
     }
   }
 
@@ -60,6 +75,7 @@ export default function Memory() {
     setOpen([]);
     setMatched([]);
     setFinished(false);
+    setSoundRequest(null);
   }
 
   return (
@@ -71,24 +87,26 @@ export default function Memory() {
         <Text style={{ fontWeight: '900', color: '#244968' }}>✨ {matched.length / 2} of {deck.length / 2}</Text>
       </View>
       <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
-        {deck.map(card => {
+        {deck.map((card, cardIndex) => {
           const revealed = open.includes(card.id) || matched.includes(card.id);
           const isMatched = matched.includes(card.id);
           return (
-            <Pressable
+            <Animated.View key={card.id} entering={FadeInUp.delay(cardIndex * 35).duration(220)} layout={LinearTransition.duration(180)} style={{ width: landscape ? '22%' : width < 600 ? '47%' : '30%', aspectRatio: landscape ? 1.15 : 0.9 }}><Pressable
               key={card.id}
               accessibilityRole="button"
-              accessibilityLabel={revealed ? card.name : 'Turn over animal card'}
+              accessibilityLabel={translateText(revealed ? card.name : 'Turn over animal card', state.language)}
               onPress={() => flip(card)}
-              style={({ pressed }) => ({ width: '30%', aspectRatio: 0.9, borderRadius: 25, backgroundColor: isMatched ? '#C9F0D3' : revealed ? '#FFF1D1' : '#A9DDF0', borderWidth: isMatched ? 3 : 0, borderColor: '#65B27A', alignItems: 'center', justifyContent: 'center', transform: [{ scale: pressed ? 0.96 : 1 }] })}
+              style={({ pressed }) => ({ width: '100%', flex: 1, borderRadius: 25, backgroundColor: isMatched ? '#C9F0D3' : revealed ? '#FFF1D1' : '#A9DDF0', borderWidth: isMatched ? 3 : 0, borderColor: '#65B27A', alignItems: 'center', justifyContent: 'center', transform: [{ scale: pressed ? 0.96 : 1 }] })}
             >
-              <Text style={{ fontSize: revealed ? 49 : 39 }}>{revealed ? card.emoji : '❔'}</Text>
-              {revealed && <Text style={{ fontSize: 12, fontWeight: '900', color: '#244968' }}>{card.name}</Text>}
-            </Pressable>
+              {revealed ? <AnimalIllustration name={card.name} emoji={card.emoji} size={landscape ? 44 : 52} /> : <Text style={{ fontSize: landscape ? 34 : 39 }}>❔</Text>}
+              {revealed && <Animated.View entering={ZoomIn.duration(180)}><Text style={{ fontSize: 12, fontWeight: '900', color: '#244968' }}>{card.name}</Text></Animated.View>}
+            </Pressable></Animated.View>
           );
         })}
       </View>
-      {finished && <><Text style={{ fontSize: 23, fontWeight: '900', color: '#41885B' }}>You found every friend! ⭐</Text><BigButton label="Meet new animals" emoji="➡️" onPress={playAgain} /></>}
+      <WrongAnswerMessage message={message} />
+      {soundRequest && <AnimalSoundPlayback key={soundRequest.key} animalName={soundRequest.animalName} enabled={state.effects} maxDurationMs={1400} />}
+      {finished && <Animated.View entering={BounceIn.duration(280)} style={{ alignItems: 'center', gap: 12 }}><Text style={{ fontSize: 23, fontWeight: '900', color: '#41885B' }}>You found every friend! ⭐</Text><BigButton label="Meet new animals" emoji="➡️" attention onPress={playAgain} /></Animated.View>}
       <Text style={{ color: '#607B89', textAlign: 'center', fontWeight: '700' }}>Take turns with a grown-up: “What do you think is under this card?”</Text>
     </Screen>
   );

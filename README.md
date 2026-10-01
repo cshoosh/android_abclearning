@@ -1,13 +1,12 @@
-# ABC Kids
+# ABC Friends
 
-An offline-first, toddler-friendly alphabet and animal learning app for Android phones/tablets, with Expo Router and a path kept compatible with a future iOS build. Children never need an account. Parent settings, optional authentication and purchase controls sit behind a three-second hold gate.
+An offline-first, toddler-friendly alphabet and animal learning app for Android phones/tablets, with a path kept compatible with a future iOS build. Children never need an account. Parent settings and purchase controls sit behind a three-second hold gate.
 
 ## Stack
 
 - Expo SDK 57 / React Native 0.86 / TypeScript strict mode
 - Expo Router, Reanimated runtime, Expo SQLite, Expo Speech, Zustand
-- Supabase Auth (optional parent email code) and an RLS-protected migration
-- Development-only purchase mock; no billing or ads SDK is included
+- Google Play subscriptions through RevenueCat; Google Mobile Ads is limited to an Android parent-dashboard banner
 - ESLint, Prettier and Jest
 
 ## Run the app
@@ -29,7 +28,7 @@ npm test
 
 ## Activities
 
-ABC lessons A–Z, generous finger tracing, 16 animal cards, find-the-letter, letter/animal matching, colors and shapes, three mini-game modes, Count & Feed, Animal Homes, Memory Match, local stars/stickers, and parent progress/settings. The three new short activities are available offline; the existing free/premium limits still apply to alphabet, tracing, animals, mini-game modes, and stickers. The Premium mock opens locked content on this device. See [the interactivity research note](docs/INTERACTIVITY_RESEARCH.md) for the design rationale.
+ABC lessons A–Z, generous finger tracing, 26 animal cards, find-the-letter, letter/animal matching, colors and shapes, three mini-game modes, Count & Feed, Animal Homes, Memory Match, local stars/stickers, and parent progress/settings. The free/premium limits apply to alphabet, tracing, animals, mini-game modes, and stickers. Premium is a monthly or annual Google Play subscription for ongoing access to the full learning library and removes the parent-dashboard ad. See [the interactivity research note](docs/INTERACTIVITY_RESEARCH.md) for the design rationale.
 
 ## Android and tablet
 
@@ -37,42 +36,31 @@ The route layout supports portrait and landscape. The home activities flow into 
 
 ## Environment configuration
 
-Copy `.env.example` to `.env` if you want optional parent sign-in. Leave values empty for offline mode:
+Copy `.env.example` to `.env` to configure production subscriptions and advertising:
 
 ```env
-EXPO_PUBLIC_SUPABASE_URL=
-EXPO_PUBLIC_SUPABASE_ANON_KEY=
-EXPO_PUBLIC_MOCK_PURCHASES=true
-EXPO_PUBLIC_ADS_ENABLED=false
+EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY=
+EXPO_PUBLIC_ADS_ENABLED=true
 ```
 
-Only public Supabase project values belong in the mobile app. Never add the service-role key. `EXPO_PUBLIC_MOCK_PURCHASES` defaults to true for local development; remove/disable the mock for release only after wiring verified store billing. Ads default to off.
-
-## Supabase setup
-
-1. Create a Supabase project and configure email OTP delivery.
-2. Copy its project URL and anon key to `.env`.
-3. Apply `supabase/migrations/202609300001_parent_sync.sql` using the Supabase CLI or SQL editor.
-4. Restart Expo after changing environment values.
-
-Parent email-code authentication is optional. Child play remains local. The migration has owner-based RLS; entitlement rows are client read-only by design. Google/Apple parent sign-in and cloud progress backup are not implemented in this MVP.
+Only the RevenueCat public Android SDK key belongs in the mobile app. Never add a RevenueCat secret key or Google Play service-account key. Leave the RevenueCat key empty until the Play products and RevenueCat offering are configured; the purchase screen will not fake or grant access. Set `EXPO_PUBLIC_ADS_ENABLED=false` to disable ads.
 
 ## Purchases
 
-The development premium flow is a local mock. It does not connect to Google Play, charge money, or create a verified entitlement. Before Play launch, configure `premium_lifetime` in Play Console, implement Google Play Billing in a supported native build, validate receipts on a trusted backend, show localized prices, and verify purchase/restore/cancel/refund behavior. Review [docs/PURCHASE_FLOW.md](docs/PURCHASE_FLOW.md).
+The app reads monthly and annual products from Google Play through RevenueCat, displays store-localized prices, verifies entitlement server-side, restores purchases, and removes the parent-dashboard ad for active subscribers. Configure the Play subscription, RevenueCat offering/entitlement, service-account connection and Android public SDK key as described in [docs/PURCHASE_FLOW.md](docs/PURCHASE_FLOW.md). Real billing requires a custom Android development build or Play test build; Expo Go cannot make purchases. Recommended initial Pakistan prices are PKR 199/month and PKR 1,499/year; the app itself always shows Google Play's configured localized price.
 
 ## Advertising
 
-Ads are disabled and no ad SDK is present. Do not enable child-directed ads without checking current Google Play Families / Apple Kids requirements, SDK eligibility, privacy disclosures and accidental-tap safeguards. No ads belong in learning or tracing interactions; no ad-watched rewards are used. Premium should remove all ads if a compliant ad product is ever added.
+Google Mobile Ads is limited to Android, with a single banner shown only after the Parent Gate in the Parent Dashboard. Child learning, tracing and gameplay remain ad-free; no ad-watched rewards or full-screen formats are used. Development and preview builds use Google's test banner unit; production builds use the configured AdMob banner unit. Requests use child-directed / under-age-of-consent treatment, G content rating and non-personalized settings, and fail closed when consent is unavailable. The Android Advertising ID permission is blocked; Google may still process IP address, ad interactions, diagnostics and other device/account identifiers. Complete AdMob consent-message and ad-review controls, confirm ad blocking categories, update store disclosures and finish legal review before release. A native development build is required; Expo Go cannot load the ads SDK.
 
 ## Audio and graphics
 
-The UI uses scalable emoji artwork and native text-to-speech for letters, words and animal names. Speech availability depends on voices installed on the device. There are no bundled animal sound effects or background music assets, so the corresponding settings are saved but those tracks are not played. Add only original or properly licensed assets before advertising them as included features.
+The app uses the device’s text-to-speech voices for letters, words and animal names; available voices depend on the device. It bundles animal sounds and short learning cues for all 26 A–Z animals, two original AI-generated interface effects (a gentle pop and a success chime), and an original 30-second AI-generated instrumental loop. Audio plays offline. Animal sounds stop after about 3.5 seconds; the background loop stays quiet, and interface sounds play for taps, bubble/balloon pops and activity rewards. Parents can control music and sound effects separately in Settings. Animal-sound credits, cue prompts and audio attribution notes are in [assets/sounds/README.md](assets/sounds/README.md), [assets/music/README.md](assets/music/README.md) and [docs/THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md).
 
 ## Privacy
 
-No child registration, camera, recording, location, contacts, social features, behavioral analytics or ads. Child progress stays on-device. Parent email is used only if the optional Supabase sign-in is configured. See [docs/PRIVACY_ARCHITECTURE.md](docs/PRIVACY_ARCHITECTURE.md) and the clearly incomplete [draft policy](docs/PRIVACY_POLICY_DRAFT.md). Get legal review and complete publisher/contact/store disclosures before release.
+No child registration, camera, recording, location, contacts, social features or behavioral analytics. Child progress stays on-device. Google Mobile Ads receives Android ad requests only in the parent dashboard while Premium is inactive. Google Play and RevenueCat process adult subscription purchases, verification and restore; they receive no child nickname, profile or learning progress. See [docs/PRIVACY_ARCHITECTURE.md](docs/PRIVACY_ARCHITECTURE.md) and the [ABC Friends Privacy Policy](docs/PRIVACY_POLICY.md). Add the publisher’s legal name, postal address and telephone contact, confirm provider settings, and complete legal review and store disclosures before release.
 
 ## Production launch checklist
 
-See [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) before submission. Remaining production work includes a verified billing backend, production store configuration, final legal/privacy review, real sound/illustration assets if desired, on-device accessibility/performance QA, and store listing materials.
+See [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) before submission. Remaining production work includes Play Console and RevenueCat catalog setup, Android service-account connection, public SDK key configuration, end-to-end license tester verification, final legal/privacy review, on-device accessibility/performance QA, and store listing materials.

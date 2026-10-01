@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ABC Kids",
-    "slug": "abc-kids",
+    "name": "ABC Friends",
+    "slug": "abc-friends",
     "version": "1.0.0",
     "orientation": "default",
     "scheme": "abckids",
@@ -13,27 +13,64 @@
     "android": {
       "package": "com.abckids.learning",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#29B9F2",
+        "foregroundImage": "./assets/android-icon-foreground.png"
       },
       "predictiveBackGestureEnabled": false,
       "blockedPermissions": [
         "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "com.google.android.gms.permission.AD_ID"
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-4477487517732949~4855354311",
+          "delayAppMeasurementInit": true,
+          "optimizeInitialization": true,
+          "optimizeAdLoading": true
+        }
+      ],
       "expo-router",
       "expo-sqlite",
       "expo-audio",
-      "expo-secure-store",
       "expo-status-bar",
-      "expo-asset"
+      "expo-asset",
+      [
+        "expo-localization",
+        {
+          "supportedLocales": {
+            "ios": [
+              "en",
+              "ur"
+            ],
+            "android": [
+              "en",
+              "ur"
+            ]
+          }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#29B9F2",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 240,
+          "resizeMode": "contain"
+        }
+      ]
     ]
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-4477487517732949~4855354311",
+    "delay_app_measurement_init": true,
+    "optimize_initialization": true,
+    "optimize_ad_loading": true
   }
 }

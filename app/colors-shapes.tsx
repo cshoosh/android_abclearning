@@ -1,11 +1,14 @@
+import { Text } from '../components/AppText';
 import React, { useState } from 'react';
-import { Pressable, Text, View, useWindowDimensions } from 'react-native';
+import { Pressable, View, useWindowDimensions } from 'react-native';
 import { router } from 'expo-router';
 import { Header, Pill, Screen } from '../components/ui';
+import { ShapeIcon } from '../components/ShapeIcon';
 import { colorsAndShapes } from '../data/content';
 import { gridColumns } from '../domain/access';
 import { speak } from '../services/audio';
 import { useAppStore } from '../store/useAppStore';
+import { translateText } from '../localization';
 
 export default function ColorsShapes() {
   const [mode, setMode] = useState<'Colors' | 'Shapes'>('Colors');
@@ -32,8 +35,8 @@ export default function ColorsShapes() {
             <Pressable
               key={value.name}
               accessibilityRole="button"
-              accessibilityLabel={locked ? 'More to explore, locked' : value.name}
-              onPress={() => locked ? router.push('/parent-gate') : (setSelected(value.name), speak(value.name, state.voice))}
+              accessibilityLabel={translateText(locked ? 'More to explore, locked' : value.name, state.language)}
+              onPress={() => locked ? router.push('/parent-gate') : (setSelected(value.name), speak(translateText(value.name, state.language), state.voice, state.language))}
               style={{
                 width: `${100 / columns - 2}%`,
                 minHeight: width > 600 ? 182 : 153,
@@ -45,7 +48,9 @@ export default function ColorsShapes() {
                 borderColor: '#fff',
               }}
             >
-              <Text style={{ fontSize: width > 600 ? 68 : 57 }}>{locked ? '🔒' : value.emoji}</Text>
+              {locked ? <Text style={{ fontSize: width > 600 ? 68 : 57 }}>🔒</Text> : mode === 'Shapes' ? (
+                <ShapeIcon name={value.name} size={width > 600 ? 108 : 92} />
+              ) : <Text style={{ fontSize: width > 600 ? 68 : 57 }}>{value.emoji}</Text>}
               <Text style={{ fontWeight: '900', fontSize: width > 600 ? 21 : 18, color: '#19334D' }}>
                 {locked ? 'More to explore' : value.name}
               </Text>

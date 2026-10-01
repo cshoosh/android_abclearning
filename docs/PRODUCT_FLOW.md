@@ -8,21 +8,21 @@ Onboarding has three short steps: welcome, optional animal buddy, and voice sett
 
 ## Parent flow
 
-Home → Parent Gate (press and hold for 3 seconds) → Parent Dashboard → optional authentication → Premium → Purchase / Restore → entitlement sync → Settings / Progress.
+Home → Parent Gate (press and hold for 3 seconds) → Parent Dashboard → Premium → Purchase / Restore → Settings / Progress.
 
-Parent-only routes also check the in-memory gate state. Leaving the parent area locks it again. The current purchase provider is a local development mock; there is no production entitlement sync yet.
+Parent-only routes also check the in-memory gate state. Leaving the parent area locks it again. Google Play subscriptions use RevenueCat server-side verification and entitlement sync; a missing or inactive entitlement never unlocks Premium.
 
 ## Purchase flow
 
 Parent Gate → Premium Screen → Store Product → Purchase → verification → entitlement enabled → app content unlocked.
 
-For development, the Store Product and verification steps are simulated locally. Production must replace them with Google Play Billing and trusted receipt validation. The UI must use localized Play prices when available.
+The app loads real store products and localized prices. Google Play Billing presents the purchase and RevenueCat verifies the transaction and entitlement before Premium unlocks.
 
 ## Restore flow
 
 Parent Gate → Restore Purchase → verify existing purchase → update entitlement → unlock Premium.
 
-In development, restore simulates an owned purchase so the screens can be exercised. It must not be treated as a real purchase.
+Restore queries the current Google Play account through RevenueCat and enables Premium only when the `premium_access` entitlement is active.
 
 ## Activity loop
 

@@ -1,0 +1,9 @@
+# Background music
+
+`abc-friends-gentle-loop.mp3` is an original 30-second instrumental generated for ABC Friends with Stable Audio 3.0 on October 1, 2026. It uses soft marimba, wooden xylophone, pizzicato strings, light bell accents and a quiet pad. The app loops it at low volume when Music is enabled.
+
+The downloaded 44.1 kHz stereo WAV was encoded as a 128 kbps MP3 for a smaller offline app asset; no samples from existing songs were supplied or requested. Generation prompt:
+
+> Original gentle, playful instrumental background music for a preschool alphabet and animal learning app. Warm, calm, cheerful and encouraging. Soft marimba and wooden xylophone with light pizzicato strings, gentle bell accents and a subtle airy pad. Simple bright major-key melody, medium-slow pace around 85 BPM, even quiet energy throughout. Instrumental only: no vocals, lyrics or speech. Do not imitate or reference any existing song, artist, brand, character or franchise. Designed as a seamless 30-second loop with compatible beginning and ending, no abrupt changes, no loud hits and no fade to silence. Keep it soft and unobtrusive under children's learning activities.
+
+This file was generated through Stable Audio's hosted service on its free Basic tier. Stable Audio's current [Terms of Service](https://stableaudio.com/terms/12-09-2023) restrict Basic-tier output to non-commercial projects. The terms allow commercial projects on Pro for apps with fewer than 100,000 monthly active users and require Enterprise above that threshold. Because ABC Friends includes monetization, this file must be regenerated under an eligible commercial tier or covered by written permission before a commercial release. AI generation also cannot guarantee that no third party will ever make a claim. Track the licensing step in [the release checklist](../../docs/RELEASE_CHECKLIST.md).
