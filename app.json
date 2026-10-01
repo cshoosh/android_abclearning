@@ -2,7 +2,7 @@
   "expo": {
     "name": "ABC Friends",
     "slug": "abc-friends",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "default",
     "scheme": "abckids",
     "icon": "./assets/icon.png",

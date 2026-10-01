@@ -1,6 +1,6 @@
 import { Text } from '../components/AppText';
 import React, { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Alert, Linking, Pressable, View } from 'react-native';
+import { ActivityIndicator, Alert, Image, Linking, Pressable, View } from 'react-native';
 import { router } from 'expo-router';
 import { ParentPage } from '../components/ParentPage';
 import { BigButton, Header } from '../components/ui';
@@ -74,6 +74,19 @@ export default function Premium() {
         {['All 26 letters and tracing', '26 animal friends', 'All games, colors and shapes', 'Every sticker', 'No ads in ABC Friends'].map(row => (
           <Text key={row} style={{ fontSize: 15, fontWeight: '700', color: '#4D687A' }}>✓  {row}</Text>
         ))}
+      </View>
+
+      <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', gap: 14, padding: 14, borderRadius: 20, backgroundColor: '#E8F8FF' }}>
+        <Image
+          source={require('../assets/branding/payment-secure.png')}
+          accessibilityLabel="Wallet and lock payment illustration"
+          style={{ width: 68, height: 68 }}
+          resizeMode="contain"
+        />
+        <View style={{ flex: 1, gap: 3 }}>
+          <Text style={{ fontSize: 15, fontWeight: '900', color: '#19334D' }}>Google Play checkout</Text>
+          <Text style={{ fontSize: 12, lineHeight: 17, color: '#4D687A' }}>Your payment and subscription are managed by Google Play.</Text>
+        </View>
       </View>
 
       {state.premium ? (
