@@ -1,5 +1,5 @@
 import { Text } from '../components/AppText';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, View, useWindowDimensions } from 'react-native';
 import { BigButton, Header, Screen, WrongAnswerMessage } from '../components/ui';
 import { createAnimalHomeRounds, homeChoices } from '../data/playActivities';
@@ -9,6 +9,8 @@ import { speak } from '../services/audio';
 import { useWrongAnswerFeedback } from '../hooks/useWrongAnswerFeedback';
 import Animated, { FadeInUp, BounceIn, LinearTransition } from 'react-native-reanimated';
 import { translateText } from '../localization';
+import { AnimalSoundPlayback } from '../components/AnimalSoundPlayback';
+import { hasAnimalSound } from '../services/animalSounds';
 
 export default function AnimalHomes() {
   const { width, height } = useWindowDimensions();
@@ -18,8 +20,14 @@ export default function AnimalHomes() {
   const [index, setIndex] = useState(0);
   const [answered, setAnswered] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [soundRequest, setSoundRequest] = useState<{ animalName: string; key: number } | null>(null);
+  const soundKey = useRef(0);
   const { message, showWrongAnswer } = useWrongAnswerFeedback(state.voice, state.language);
   const round = rounds[index];
+
+  useEffect(() => {
+    if (!finished) speak(`Where does ${round.animal} live?`, state.voice, state.language);
+  }, [finished, index, round.animal, state.language, state.voice]);
 
   function chooseHome(homeId: string) {
     if (answered || finished) return;
@@ -59,7 +67,10 @@ export default function AnimalHomes() {
         <View accessible accessibilityLabel={translateText(round.animal, state.language)} style={{ height: landscape ? 84 : 116, alignItems: 'center', justifyContent: 'center' }}>
           <AnimalIllustration name={round.animal} emoji={round.emoji} size={landscape ? 70 : 96} />
         </View>
-        <Pressable accessibilityRole="button" accessibilityLabel={translateText(`Hear ${round.animal}`, state.language)} onPress={() => speak(round.animal, state.voice, state.language)}>
+        <Pressable accessibilityRole="button" accessibilityLabel={translateText(`Hear ${round.animal}`, state.language)} onPress={() => {
+          speak(round.animal, state.voice, state.language);
+          if (hasAnimalSound(round.animal)) setSoundRequest({ animalName: round.animal, key: soundKey.current++ });
+        }}>
           <Text style={{ fontSize: 21, fontWeight: '900', color: '#244968' }}>🔊 {round.animal}</Text>
         </Pressable>
       </View>
@@ -83,6 +94,7 @@ export default function AnimalHomes() {
       <WrongAnswerMessage message={message} />
       {answered && !finished && <Animated.View entering={BounceIn.duration(240)}><BigButton label="Next friend" emoji="➡️" attention onPress={continuePlay} /></Animated.View>}
       {finished && <Animated.View entering={BounceIn.duration(280)} style={{ alignItems: 'center', gap: 12 }}><Text style={{ fontSize: 23, fontWeight: '900', color: '#41885B' }}>All friends found a home! ⭐</Text><BigButton label="Play again" emoji="🔁" attention onPress={startAgain} /></Animated.View>}
+      {soundRequest && <AnimalSoundPlayback key={soundRequest.key} animalName={soundRequest.animalName} enabled={state.effects} />}
     </Screen>
   );
 }

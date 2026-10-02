@@ -22,7 +22,6 @@ export default function Learn() {
   const patch = useAppStore(state => state.patch);
   const alphabet = getLearningLetters(language);
   const item = alphabet[index];
-  const available = premium ? alphabet : alphabet.slice(0, 6);
   const locked = !canAccessLetter(index, premium);
 
   useEffect(() => {
@@ -63,7 +62,13 @@ export default function Learn() {
       </View>
     </Animated.View>}
     {landscape
-      ? <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: '100%', flexGrow: 0 }} contentContainerStyle={{ flexDirection: 'row', justifyContent: 'center', gap: 7, paddingVertical: 2 }}>{available.map((letter, n) => <Pressable key={letter.upper} onPress={() => setIndex(n)} style={{ width: 38, height: 38, borderRadius: 14, backgroundColor: n === index ? colors.yellow : '#fff', alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontWeight: '900', color: colors.ink }}>{letter.upper}</Text></Pressable>)}</ScrollView>
-      : <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 7, marginTop: 9 }}>{available.map((letter, n) => <Pressable key={letter.upper} onPress={() => setIndex(n)} style={{ width: 38, height: 38, borderRadius: 14, backgroundColor: n === index ? colors.yellow : '#fff', alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontWeight: '900', color: colors.ink }}>{letter.upper}</Text></Pressable>)}</View>}
+      ? <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: '100%', flexGrow: 0 }} contentContainerStyle={{ flexDirection: 'row', justifyContent: 'center', gap: 7, paddingVertical: 2 }}>{alphabet.map((letter, n) => {
+        const letterLocked = !canAccessLetter(n, premium);
+        return <Pressable key={letter.upper} accessibilityRole="button" accessibilityLabel={translateText(letterLocked ? `Unlock letter ${letter.upper}` : `Letter ${letter.upper}`, language)} onPress={() => letterLocked ? router.push('/parent-gate') : setIndex(n)} style={{ width: 38, height: 38, borderRadius: 14, backgroundColor: n === index ? colors.yellow : '#fff', alignItems: 'center', justifyContent: 'center', opacity: letterLocked ? 0.72 : 1 }}><Text style={{ fontWeight: '900', color: colors.ink }}>{letterLocked ? '🔒' : letter.upper}</Text></Pressable>;
+      })}</ScrollView>
+      : <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 7, marginTop: 9 }}>{alphabet.map((letter, n) => {
+        const letterLocked = !canAccessLetter(n, premium);
+        return <Pressable key={letter.upper} accessibilityRole="button" accessibilityLabel={translateText(letterLocked ? `Unlock letter ${letter.upper}` : `Letter ${letter.upper}`, language)} onPress={() => letterLocked ? router.push('/parent-gate') : setIndex(n)} style={{ width: 38, height: 38, borderRadius: 14, backgroundColor: n === index ? colors.yellow : '#fff', alignItems: 'center', justifyContent: 'center', opacity: letterLocked ? 0.72 : 1 }}><Text style={{ fontWeight: '900', color: colors.ink }}>{letterLocked ? '🔒' : letter.upper}</Text></Pressable>;
+      })}</View>}
   </Screen>;
 }

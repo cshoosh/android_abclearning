@@ -27,6 +27,6 @@ export default function Settings() {
     {audioOptions.map(([label, key, emoji]) => <Pressable key={key} onPress={() => state.patch({ [key]: !state[key] })} style={{ width: '100%', padding: 18, borderRadius: 21, backgroundColor: '#fff', marginTop: 7, flexDirection: 'row', justifyContent: 'space-between' }}><Text style={{ fontSize: 17, fontWeight: '900', color: colors.ink }}>{emoji}  {label}</Text><Text style={{ fontSize: 16, fontWeight: '900', color: state[key] ? '#4A9B68' : '#788995' }}>{state[key] ? 'ON' : 'OFF'}</Text></Pressable>)}
     <Text style={{ fontSize: 11, color: '#687B89', textAlign: 'center' }}>Music and sound effects generated with Stable Audio 3.0 · Powered by Stability AI</Text>
     <BigButton label="Reset all progress" emoji="🗑️" color="#FFE0DE" onPress={() => Alert.alert(translateText('Reset this device?', state.language), translateText('This clears stars, stickers and activity progress. Your profile and Premium access will stay.', state.language), [{ text: translateText('Cancel', state.language), style: 'cancel' }, { text: translateText('Reset progress', state.language), style: 'destructive', onPress: state.reset }])} />
-    <Text style={{ fontSize: 12, color: '#687B89', textAlign: 'center' }}>Resetting progress does not cancel a store subscription or purchase.</Text>
+    <Text style={{ fontSize: 12, color: '#687B89', textAlign: 'center' }}>Resetting progress does not refund or remove a Google Play purchase.</Text>
   </ParentPage>;
 }

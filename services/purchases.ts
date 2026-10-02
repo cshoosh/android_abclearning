@@ -13,11 +13,15 @@ function getAndroidApiKey() {
   return process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY?.trim();
 }
 
-export type SubscriptionPlan = {
-  id: 'monthly' | 'annual';
+export type LifetimePurchase = {
   product: PurchasesPackage;
   price: string;
+  regularPrice?: string;
+  promotional: boolean;
 };
+
+const standardLifetimeProductId = 'abc_friends_premium_lifetime';
+const launchLifetimeProductId = 'abc_friends_premium_launch_999';
 
 export type PurchaseResult = {
   active: boolean;
@@ -64,32 +68,40 @@ export async function getPremiumStatus(): Promise<boolean | null> {
   }
 }
 
-export async function getSubscriptionPlans(): Promise<SubscriptionPlan[]> {
-  if (!(await initializePurchases())) return [];
-  const { current } = await Purchases.getOfferings();
-  if (!current) return [];
+export async function getLifetimePurchase(): Promise<LifetimePurchase | null> {
+  if (!(await initializePurchases())) return null;
+  const offerings = await Purchases.getOfferings();
+  const lifetime = offerings.current?.availablePackages.find(item =>
+    item.packageType === PACKAGE_TYPE.LIFETIME &&
+    [standardLifetimeProductId, launchLifetimeProductId].includes(item.product.identifier),
+  );
+  if (!lifetime) return null;
 
-  const plans: SubscriptionPlan[] = [];
-  for (const product of current.availablePackages) {
-    if (product.packageType === PACKAGE_TYPE.MONTHLY) {
-      plans.push({ id: 'monthly', product, price: product.product.priceString });
-    } else if (product.packageType === PACKAGE_TYPE.ANNUAL) {
-      plans.push({ id: 'annual', product, price: product.product.priceString });
-    }
-  }
-  return plans.sort((a, b) => (a.id === 'annual' ? -1 : b.id === 'annual' ? 1 : 0));
+  const promotional = lifetime.product.identifier === launchLifetimeProductId;
+  const regularPrice = promotional
+    ? offerings.all.premium_standard?.availablePackages.find(item =>
+        item.packageType === PACKAGE_TYPE.LIFETIME && item.product.identifier === standardLifetimeProductId,
+      )?.product.priceString
+    : undefined;
+
+  return {
+    product: lifetime,
+    price: lifetime.product.priceString,
+    ...(regularPrice ? { regularPrice } : {}),
+    promotional,
+  };
 }
 
 export async function purchasePremium(product: PurchasesPackage): Promise<PurchaseResult> {
   if (!(await initializePurchases())) {
-    return { active: false, message: 'Subscriptions are not available in this build yet.' };
+    return { active: false, message: 'The one-time purchase is not available in this build yet.' };
   }
   try {
     const { customerInfo } = await Purchases.purchasePackage(product);
     const active = hasPremium(customerInfo);
     return {
       active,
-      message: active ? 'Premium is active. Enjoy the full learning library!' : 'The store did not confirm an active subscription yet.',
+      message: active ? 'Premium is unlocked for your Google Play account. Enjoy the full learning library!' : 'The store did not confirm the purchase yet.',
     };
   } catch (error) {
     const purchaseError = error as PurchasesError;
@@ -102,13 +114,13 @@ export async function purchasePremium(product: PurchasesPackage): Promise<Purcha
 
 export async function restorePremium(): Promise<PurchaseResult> {
   if (!(await initializePurchases())) {
-    return { active: false, message: 'Subscriptions are not available in this build yet.' };
+    return { active: false, message: 'Purchases are not available in this build yet.' };
   }
   const customerInfo = await Purchases.restorePurchases();
   const active = hasPremium(customerInfo);
   return {
     active,
-    message: active ? 'Your subscription has been restored.' : 'No active ABC Friends subscription was found for this Google Play account.',
+    message: active ? 'Your ABC Friends purchase has been restored.' : 'No ABC Friends purchase was found for this Google Play account.',
   };
 }
 

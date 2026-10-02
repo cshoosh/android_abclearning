@@ -9,6 +9,7 @@ import { speak } from '../services/audio';
 import { colors } from '../theme/tokens';
 import Animated, { BounceIn, FadeInUp, LinearTransition } from 'react-native-reanimated';
 import { useWrongAnswerFeedback } from '../hooks/useWrongAnswerFeedback';
+import { playUiSound } from '../services/uiSoundEvents';
 
 export default function FindLetter() {
   const { width, height } = useWindowDimensions();
@@ -33,6 +34,8 @@ export default function FindLetter() {
     <View style={{ width: landscape ? '67%' : '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: 14, marginTop: landscape ? 0 : 14 }}>
       {options.map((option, index) => <Animated.View key={`${option.upper}-${index}`} entering={FadeInUp.delay(index * 45).duration(220)} layout={LinearTransition.duration(180)} style={{ width: '43%' }}><Pressable accessibilityRole="button" accessibilityLabel={state.language === 'ur' ? `حرف ${option.upper}` : translateText(`Letter ${option.upper}`, state.language)} onPress={() => {
         if (celebrating) return;
+        playUiSound('pop');
+        speak(getSpokenLetterName(option, state.language), state.voice, state.language);
         if (option.upper === target.upper) {
           if (!celebrating) state.reward('find-letter', option.upper);
           setCelebrating(true);
@@ -44,6 +47,6 @@ export default function FindLetter() {
     </View>
     </View>
     <WrongAnswerMessage message={message} />
-    {celebrating && <Animated.View entering={BounceIn.duration(280)} style={{ alignItems: 'center', gap: 12 }}><Text style={{ fontSize: 23, fontWeight: '900', color: '#478C5E' }}>You found it! ⭐ 🎉</Text><BigButton label="Play again" emoji="➡️" attention onPress={() => { setRound(round + 1); setCelebrating(false); }} /></Animated.View>}
+    {celebrating && <Animated.View entering={BounceIn.duration(280)} style={{ alignItems: 'center', gap: 12 }}><Text style={{ fontSize: 23, fontWeight: '900', color: '#478C5E' }}>You found it! ⭐ 🎉</Text><BigButton label="Next" emoji="➡️" attention onPress={() => { setRound(round + 1); setCelebrating(false); }} /></Animated.View>}
   </Screen>;
 }

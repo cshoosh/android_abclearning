@@ -34,7 +34,7 @@ const illustrations: Record<string, ImageSourcePropType> = {
 export function AnimalIllustration({ name, emoji, size, opacity = 1 }: { name: string; emoji: string; size: number; opacity?: number }) {
   const image = illustrations[name];
   if (image) {
-    return <Image source={image} resizeMode="contain" style={{ width: size * (name === 'Lion' ? 1.25 : 1.5), height: size * (name === 'Lion' ? 1.25 : 1), opacity, ...(name === 'Lion' ? { borderRadius: size * 0.25 } : {}) }} />;
+    return <Image source={image} resizeMode="contain" style={{ width: size * (name === 'Lion' ? 1.25 : 1.5), height: size * (name === 'Lion' ? 1.25 : 1), opacity, ...(name === 'Lion' ? { borderRadius: size * 0.38, backgroundColor: '#FFF0B5' } : {}) }} />;
   }
   return <Text style={{ fontSize: size, opacity }}>{emoji}</Text>;
 }

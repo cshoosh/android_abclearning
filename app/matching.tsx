@@ -10,6 +10,7 @@ import { speak } from '../services/audio';
 import { useWrongAnswerFeedback } from '../hooks/useWrongAnswerFeedback';
 import Animated, { BounceIn, FadeInUp, LinearTransition } from 'react-native-reanimated';
 import { AnimalIllustration } from '../components/AnimalIllustration';
+import { playUiSound } from '../services/uiSoundEvents';
 
 export default function Matching() {
   const { width, height } = useWindowDimensions();
@@ -39,7 +40,7 @@ export default function Matching() {
     <View style={{ width: landscape ? '30%' : '100%', gap: 8 }}>
       <View style={{ width: '100%', padding: 14, alignItems: 'center', justifyContent: 'center', flex: landscape ? 1 : undefined, backgroundColor: '#E8E1FF', borderRadius: 28, gap: 4 }}>
         <Text style={{ fontSize: 16, fontWeight: '800', color: '#536A80', textAlign: 'center' }}>{state.language === 'ur' ? 'اس حرف سے کس جانور کا نام شروع ہوتا ہے؟' : translateText('Which animal starts with this letter?', state.language)}</Text>
-        <Text style={{ fontSize: landscape ? 64 : 84, fontWeight: '900', color: '#344E76' }}>{targetLetter}</Text>
+        <Pressable accessibilityRole="button" accessibilityLabel={translateText(`Hear letter ${targetLetter}`, state.language)} onPress={() => { playUiSound('pop'); speak(targetLetter, state.voice, state.language); }} style={{ minWidth: 84, minHeight: 78, alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontSize: landscape ? 64 : 84, fontWeight: '900', color: '#344E76' }}>{targetLetter}</Text></Pressable>
         <Pressable accessibilityRole="button" accessibilityLabel={state.language === 'ur' ? 'حرف اور لفظ سنیں' : translateText('Hear the letter and animal', state.language)} onPress={() => speak(state.language === 'ur' ? `${targetLetter}، ${targetAnimalName}` : `${letter.upper} is for ${animal.name}`, true, state.language)}><Text style={{ fontSize: 18 }}>🔊 Listen</Text></Pressable>
       </View>
       <Text style={{ fontSize: 17, fontWeight: '900', color: '#19334D', textAlign: landscape ? 'center' : 'left' }}>{state.language === 'ur' ? 'صحیح لفظ چنیں' : 'Tap the matching animal'}</Text>

@@ -13,7 +13,7 @@ export function BackgroundMusic() {
   const [isForeground, setIsForeground] = useState(AppState.currentState === 'active');
 
   useEffect(() => {
-    player.loop = false;
+    player.loop = true;
     player.volume = 0.16;
   }, [player]);
 

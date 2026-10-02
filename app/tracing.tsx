@@ -3,6 +3,7 @@ import { GestureResponderEvent, Image, View, useWindowDimensions } from 'react-n
 import { router } from 'expo-router';
 import { Text } from '../components/AppText';
 import { BigButton, Header, Pill, Screen } from '../components/ui';
+import { canAccessLetter } from '../domain/access';
 import { getLearningLetters, getSpokenLearningWord, getSpokenLetterName } from '../data/learningLetters';
 import { useAppStore } from '../store/useAppStore';
 import { speak } from '../services/audio';
@@ -15,6 +16,7 @@ import { traceGlyphMasks } from '../domain/tracingGlyphMasks';
 export default function Tracing() {
   const { width, height } = useWindowDimensions();
   const landscape = width > height;
+  const compact = landscape || height < 760;
   const [index, setIndex] = useState(0);
   const [lower, setLower] = useState(false);
   const [marks, setMarks] = useState<TracePoint[]>([]);
@@ -27,10 +29,10 @@ export default function Tracing() {
   const state = useAppStore();
   const alphabet = getLearningLetters(state.language);
   const item = alphabet[index];
-  const locked = !state.premium && index > 2;
+  const locked = !canAccessLetter(index, state.premium);
   const letter = lower ? item.lower : item.upper;
-  const boardHeight = landscape ? Math.max(205, Math.min(320, height - 115)) : 350;
-  const baseLetterSize = landscape ? Math.min(190, height * 0.53) : 220;
+  const boardHeight = landscape ? Math.max(165, Math.min(285, height - 145)) : Math.max(145, Math.min(285, height * 0.27));
+  const baseLetterSize = landscape ? Math.min(180, height * 0.48) : Math.min(210, boardHeight * 0.72);
   // Lowercase letters use x-height, so render and score them at the same
   // smaller size instead of stretching them to uppercase height.
   const letterSize = baseLetterSize * (lower ? 0.72 : 1);
@@ -63,10 +65,10 @@ export default function Tracing() {
   </View>;
   const actions = <>
     <View style={{ width: '100%', flexDirection: landscape ? 'column' : 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-      <BigButton small={landscape} label="Clear" emoji="↻" color="#DFF3FC" onPress={clearTrace} />
-      <BigButton small={landscape} label="Next" emoji="➡️" color={colors.yellow} attention onPress={nextLetter} />
+      <BigButton small={compact} label="Clear" emoji="↻" color="#DFF3FC" onPress={clearTrace} />
+      <BigButton small={compact} label="Next" emoji="➡️" color={colors.yellow} attention onPress={nextLetter} />
     </View>
-    <BigButton small={landscape} label={state.language === 'ur' ? `حرف ${getSpokenLetterName(item, state.language)} سنیں` : `Hear ${item.upper}`} emoji="🔊" color={colors.green} onPress={() => speak(`${getSpokenLetterName(item, state.language)}. ${getSpokenLearningWord(item.word, state.language)}.`, state.voice, state.language)} />
+    <BigButton small={compact} label={state.language === 'ur' ? `حرف ${getSpokenLetterName(item, state.language)} سنیں` : `Hear ${item.upper}`} emoji="🔊" color={colors.green} onPress={() => speak(`${getSpokenLetterName(item, state.language)}. ${getSpokenLearningWord(item.word, state.language)}.`, state.voice, state.language)} />
   </>;
   const board = <View
     onLayout={event => setBoardSize({ width: event.nativeEvent.layout.width, height: event.nativeEvent.layout.height })}
@@ -137,7 +139,7 @@ export default function Tracing() {
     clearTrace();
   }
 
-  return <Screen>
+  return <Screen scroll={false}>
     <Header
       title="Trace a Letter"
       right={<Text style={{ fontSize: 14, fontWeight: '900', color: colors.ink }}>{index + 1}/{alphabet.length}  ·  ⭐ {state.stars}</Text>}

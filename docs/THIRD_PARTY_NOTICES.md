@@ -2,9 +2,9 @@
 
 ## Generated music and interface sound effects
 
-The background music asset `assets/music/abc-friends-gentle-loop.mp3`, interface effects `assets/sounds/ui-pop.mp3` and `assets/sounds/ui-success.mp3`, and animal learning cues `assets/sounds/iguana.mp3`, `assets/sounds/newt.mp3`, `assets/sounds/unicorn.mp3` and `assets/sounds/x-ray-fish.mp3` were generated with Stable Audio 3.0 through the hosted service's free Basic tier. The four animal cues are stylized learning effects, not field recordings or verified biological calls.
+The background music asset `assets/music/abc-friends-gentle-loop.mp3`, interface effects `assets/sounds/ui-pop.mp3` and `assets/sounds/ui-success.mp3`, and animal learning cues `assets/sounds/iguana.mp3`, `assets/sounds/newt.mp3`, `assets/sounds/unicorn.mp3` and `assets/sounds/x-ray-fish.mp3` were generated with Stable Audio 3.0 through the hosted service's free plan. The four animal cues are stylized learning effects, not field recordings or verified biological calls.
 
-Stable Audio's [hosted-service Terms of Service](https://stableaudio.com/terms/12-09-2023) restrict Basic-tier outputs to non-commercial projects. Its current terms allow commercial apps under 100,000 monthly active users on Pro and require Enterprise above that threshold. These generated assets must be regenerated under a tier that permits this app's commercial use or covered by written permission before a commercial release. Check the linked terms again at release time.
+Stability AI's current [commercial-use guidance](https://kb.stability.ai/knowledge-base/stable-audio-commerical-and-usage-licensing) permits generated music and sound effects to be embedded in mobile apps, including on the Free plan, subject to its current Terms of Service and Acceptable Use Policy. No paid plan is required for this embedded use. We retain generation dates and prompts in the asset README files. Stability AI notes that users remain responsible for avoiding third-party rights violations, and AI generation cannot guarantee against third-party claims. Recheck the linked guidance at release time.
 
 ## Yak sound
 

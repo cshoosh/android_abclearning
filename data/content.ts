@@ -1,17 +1,17 @@
 export type Letter = { upper: string; lower: string; word: string; emoji: string; animal?: string; animalEmoji?: string };
 const englishAlphabetEntries: Array<[string, string, string, string, string, string]> = [
-  ['A','a','Apple','🍎','Alligator','🐊'],['B','b','Ball','⚽','Bear','🐻'],['C','c','Cat','🐱','Cat','🐱'],['D','d','Dog','🐶','Dog','🐶'],
-  ['E','e','Elephant','🐘','Elephant','🐘'],['F','f','Frog','🐸','Frog','🐸'],['G','g','Giraffe','🦒','Giraffe','🦒'],['H','h','House','🏠','Hippo','🦛'],
-  ['I','i','Ice cream','🍦','Iguana','🦎'],['J','j','Jellyfish','🪼','Jaguar','🐆'],['K','k','Kite','🪁','Koala','🐨'],['L','l','Lion','🦁','Lion','🦁'],
-  ['M','m','Monkey','🐵','Monkey','🐵'],['N','n','Nest','🪺','Newt','🦎'],['O','o','Owl','🦉','Owl','🦉'],['P','p','Panda','🐼','Panda','🐼'],
-  ['Q','q','Queen','👑','Quail','🐦'],['R','r','Rabbit','🐰','Rabbit','🐰'],['S','s','Sun','☀️','Snake','🐍'],['T','t','Turtle','🐢','Turtle','🐢'],
-  ['U','u','Umbrella','☂️','Unicorn','🦄'],['V','v','Violin','🎻','Vulture','🦅'],['W','w','Whale','🐳','Whale','🐳'],['X','x','Xylophone','🎼','X-ray fish','🐟'],
-  ['Y','y','Yo-yo','🪀','Yak','🐂'],['Z','z','Zebra','🦓','Zebra','🦓'],
+  ['A','a','Apple','🍎','Alligator','🐊'],['B','b','Ball','⚽','Bear','🐻'],['C','c','Cookie','🍪','Cat','🐱'],['D','d','Drum','🥁','Dog','🐶'],
+  ['E','e','Egg','🥚','Elephant','🐘'],['F','f','Flower','🌼','Frog','🐸'],['G','g','Giraffe','🦒','Giraffe','🦒'],['H','h','House','🏠','Hippo','🦛'],
+  ['I','i','Ice cream','🍦','Iguana','🦎'],['J','j','Jellyfish','🪼','Jaguar','🐆'],['K','k','Kite','🪁','Koala','🐨'],['L','l','Leaf','🍃','Lion','🦁'],
+  ['M','m','Moon','🌙','Monkey','🐵'],['N','n','Nest','🪺','Newt','🦎'],['O','o','Orange','🍊','Owl','🦉'],['P','p','Pizza','🍕','Panda','🐼'],
+  ['Q','q','Queen','👑','Quail','🐦'],['R','r','Rose','🌹','Rabbit','🐰'],['S','s','Sun','☀️','Snake','🐍'],['T','t','Train','🚂','Turtle','🐢'],
+  ['U','u','Umbrella','☂️','Unicorn','🦄'],['V','v','Violin','🎻','Vulture','🦅'],['W','w','Water','💧','Whale','🐳'],['X','x','Xylophone','🎼','X-ray fish','🐟'],
+  ['Y','y','Yo-yo','🪀','Yak','🐂'],['Z','z','Zoo','🦒','Zebra','🦓'],
 ];
 export const alphabet: Letter[] = englishAlphabetEntries.map(([upper, lower, word, emoji, animal, animalEmoji]) => ({ upper, lower, word, emoji, animal, animalEmoji }));
 const animalCardColors: Record<string, string> = {
   Alligator: '#DDF2D1', Bear: '#F4DDCB', Cat: '#FFE4CF', Dog: '#E6E6FF', Elephant: '#D8EEFF', Frog: '#DAF8D8',
-  Giraffe: '#FFF0B8', Hippo: '#DDEBFA', Iguana: '#E2F3D2', Jaguar: '#FFE2A7', Koala: '#E8E8E8', Lion: '#FFE2A7',
+  Giraffe: '#FFF0B8', Hippo: '#DDEBFA', Iguana: '#E2F3D2', Jaguar: '#FFE2A7', Koala: '#E8E8E8', Lion: '#FFF0B5',
   Monkey: '#FAD8BA', Newt: '#D9F2EB', Owl: '#E8DFFF', Panda: '#E7E9FF', Quail: '#FFF1D7', Rabbit: '#FCE1EE',
   Snake: '#DDF2D1', Turtle: '#D8F3C9', Unicorn: '#F1E4FF', Vulture: '#E7E4DA', Whale: '#D6F5FF',
   'X-ray fish': '#D6F5FF', Yak: '#E8DFCF', Zebra: '#E7F4F0',

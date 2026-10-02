@@ -1,8 +1,8 @@
 # ABC Friends Privacy Policy
 
-**Last updated: October 1, 2026**
+**Last updated: October 2, 2026**
 
-ABC Friends is an offline-first learning app for children and caregivers. A child can use the learning activities without creating an account. A child’s optional nickname, avatar, settings, and learning progress stay on the device. On Android, a non-personalized ad may appear only in the parent-gated dashboard while Premium is inactive. An adult may buy or restore an auto-renewing subscription through Google Play.
+ABC Friends is an offline-first learning app for children and caregivers. A child can use the learning activities without creating an account. A child’s optional nickname, avatar, settings, and learning progress stay on the device. On Android, a non-personalized ad may appear only in the parent-gated dashboard while Premium is inactive. An adult may buy or restore a one-time Premium purchase through Google Play.
 
 ## 1. Who this policy is for
 
@@ -23,17 +23,17 @@ When voice is turned on, ABC Friends asks the device’s built-in text-to-speech
 
 ## 4. What we do not use
 
-ABC Friends does not use behavioral advertising or analytics, social features, public child profiles, or child-to-child messaging. It does not ask for a child’s precise location, contacts, photos, camera access, or microphone recordings. We do not sell children’s information.
+ABC Friends does not run its own behavioral advertising or user analytics, social features, public child profiles, or child-to-child messaging. It does not ask for a child’s precise location, contacts, photos, camera access, or microphone recordings. We do not sell children’s information.
 
 ## 5. Sharing and service providers
 
-We do not share a child’s profile or learning progress. On Android, Google may use information related to ads shown only in the parent area. Google Play and RevenueCat handle adult purchases and subscriptions; they do not receive the child’s nickname, profile, or learning progress. If a parent emails us, we receive the email address and message so we can reply. We may disclose information if required by law or when necessary to protect a person’s safety, the app, or our legal rights.
+We do not share a child’s profile or learning progress. On Android, Google Mobile Ads and its consent tools may automatically collect and share approximate location inferred from IP address, app interactions such as launches and taps, diagnostics, and device or other identifiers for advertising, analytics, and fraud prevention. Ads are child-directed, non-personalized, and limited to the parent area. The Android advertising-ID permission is blocked, but other identifiers may still be processed. Google Play and RevenueCat process adult purchase history and purchase status, including any legacy subscription still in its paid period; they do not receive the child’s nickname, profile, or learning progress. If a parent emails us, we receive the email address and message so we can reply. We may disclose information if required by law or when necessary to protect a person’s safety, the app, or our legal rights.
 
 Apple, Google, and device operating-system providers may separately process information when families download or use their services. Their own privacy policies apply.
 
 ## 6. Purchases and ads
 
-An adult can choose a monthly or annual auto-renewing subscription through Google Play. Before purchase, Google Play shows the localized price and billing period, charges the Google Play account, and manages renewal and cancellation. Google Play handles payment details; RevenueCat verifies purchase status to unlock Premium and restore access. ABC Friends does not collect card details. Parents can restore or manage/cancel the subscription through Google Play subscriptions. A non-personalized Google Mobile Ads banner may appear only in the parent-gated dashboard on Android while Premium is inactive; it does not appear in child activities and is not rewarded. Google Play, RevenueCat and Google Mobile Ads process their respective information under their own terms and privacy policies.
+An adult can make a one-time Premium purchase through Google Play. Before purchase, Google Play shows the localized price and charges the Google Play account once; there is no automatic renewal. Existing subscribers may retain Premium through the end of a period they have already paid for; Google Play manages any such legacy subscription renewal or cancellation. Google Play handles payment details; RevenueCat verifies purchase status to unlock Premium and restore access. ABC Friends does not collect card details. A non-personalized Google Mobile Ads banner may appear only in the parent-gated dashboard on Android while Premium is inactive; it does not appear in child activities and is not rewarded. Google Play, RevenueCat and Google Mobile Ads process their respective information under their own terms and privacy policies.
 
 ## 7. How long information is kept and deletion
 

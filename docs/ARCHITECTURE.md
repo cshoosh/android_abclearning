@@ -9,7 +9,7 @@ ABC Friends is a single Expo Router application. The child experience works with
 - `data/`: shared alphabet, animal, color, shape, and activity content.
 - `domain/`: content access, parent gate threshold, reward collection, and responsive grid rules.
 - `store/`: Zustand state for local screen updates and user actions.
-- `services/`: local saving, speech, Google Play subscriptions, and parent-only ads.
+- `services/`: local saving, speech, one-time Google Play purchases, and parent-only ads.
 
 ## Data and privacy boundary
 

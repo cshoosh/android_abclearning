@@ -31,6 +31,7 @@ export function AnimalSoundPlayback({ animalName, enabled, maxDurationMs = 3500 
 
       return () => {
         clearTimeout(stopTimer);
+        stopPlayback();
       };
     } else {
       stopPlayback();

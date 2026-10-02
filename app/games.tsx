@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
 import { router } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { Text } from '../components/AppText';
@@ -13,6 +13,7 @@ import type { MiniGameOption } from '../domain/miniGames';
 import { translateText } from '../localization';
 import { playUiSound } from '../services/uiSoundEvents';
 import { AnimalIllustration } from '../components/AnimalIllustration';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const optionColors = ['#FFE1BA', '#C6EAF7', '#D9F2CE', '#E6D9FA'];
 const balloonPopAnimation = require('../assets/lottie/balloon-pop.json');
@@ -51,6 +52,8 @@ export default function Games() {
 
   function answer(option: MiniGameOption) {
     if (done || popping) return;
+    const hasDedicatedPopSound = game.id === 'balloon-pop' || game.id === 'letter-bubbles';
+    if (!hasDedicatedPopSound || option.id !== round.answerId) playUiSound('pop');
     if (option.id === round.answerId) {
       if (game.id === 'balloon-pop' || game.id === 'letter-bubbles') {
         playUiSound(game.id === 'balloon-pop' ? 'balloon-pop' : 'bubble-pop');
@@ -98,7 +101,7 @@ export default function Games() {
     return option.emoji;
   }
 
-  return <Screen scroll={false}>
+  return <Screen>
     <Header title="Mini Games" />
     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ flexDirection: 'row', alignItems: 'center', gap: 7, paddingHorizontal: 2 }} style={{ width: '100%', flexGrow: 0, flexShrink: 0 }}>
       {miniGames.map((item, index) => {
@@ -112,8 +115,8 @@ export default function Games() {
       })}
     </ScrollView>
 
-    <View style={{ width: '100%', flex: 1, minHeight: 0, flexDirection: landscape ? 'row' : 'column', alignItems: 'stretch', justifyContent: 'space-between', gap: landscape ? 12 : 8 }}>
-    <View style={{ width: landscape ? '32%' : '100%', flex: landscape ? undefined : 0.86, minHeight: landscape ? Math.min(150, height * 0.42) : 108, padding: landscape ? 12 : 10, borderRadius: 27, alignItems: 'center', justifyContent: 'center', backgroundColor: game.color, gap: landscape ? 6 : 3 }}>
+    <View style={{ width: '100%', minHeight: landscape ? Math.min(190, height * 0.48) : 0, flexDirection: landscape ? 'row' : 'column', alignItems: 'stretch', justifyContent: 'space-between', gap: landscape ? 12 : 8 }}>
+    <View style={{ width: landscape ? '32%' : '100%', minHeight: landscape ? Math.min(150, height * 0.42) : 112, padding: landscape ? 12 : 10, borderRadius: 27, alignItems: 'center', justifyContent: 'center', backgroundColor: game.color, gap: landscape ? 6 : 3 }}>
       <Text style={{ fontSize: 16, fontWeight: '800', color: '#567082', textAlign: 'center' }}>{round.prompt}</Text>
       {renderVisual()}
       <Pressable accessibilityRole="button" accessibilityLabel={translateText('Listen to the question', state.language)} onPress={() => speak(round.prompt, true, state.language)} style={{ paddingHorizontal: 12, paddingVertical: 6 }}>
@@ -121,7 +124,7 @@ export default function Games() {
       </Pressable>
     </View>
 
-    <View style={{ width: landscape ? '66%' : '100%', flex: landscape ? undefined : 1, minHeight: 0, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'stretch', gap: 8, marginTop: landscape ? 0 : 4 }}>
+    <View style={{ width: landscape ? '66%' : '100%', minHeight: landscape ? 0 : 178, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'stretch', gap: 8, marginTop: landscape ? 0 : 4 }}>
       {round.options.map((option, index) => (
         <Pressable
           key={option.id}
@@ -157,7 +160,27 @@ export default function Games() {
 
     <View style={{ width: '100%', minHeight: done ? 108 : message ? 66 : 0, alignItems: 'center', justifyContent: 'center', gap: 6 }}>
       <WrongAnswerMessage message={message} />
-      {done && <><Text style={{ fontSize: 23, fontWeight: '900', color: '#4C9561' }}>Super play! ⭐</Text><BigButton label="Play again" emoji="➡️" attention onPress={advance} /></>}
+      {done && <BigButton label="Play again" emoji="➡️" attention onPress={advance} />}
     </View>
+    {done && <ConfettiOverlay width={width} height={height} />}
   </Screen>;
+}
+
+const confetti = ['🎉', '✨', '⭐', '🎊', '💛', '🌟', '🎈', '🟣', '🔵', '🟢', '🎉', '✨', '⭐', '🎊', '💛', '🌟', '🎈', '🟣', '🔵', '🟢'];
+function ConfettiOverlay({ width, height }: { width: number; height: number }) {
+  const [visible, setVisible] = React.useState(true);
+  useEffect(() => {
+    const timeout = setTimeout(() => setVisible(false), 2600);
+    return () => clearTimeout(timeout);
+  }, []);
+  if (!visible) return null;
+  return <View pointerEvents="none" style={[StyleSheet.absoluteFill, { zIndex: 10, overflow: 'hidden' }]}>
+    {confetti.map((item, index) => <AnimatedConfetti key={`${item}-${index}`} item={item} index={index} width={width} height={height} />)}
+  </View>;
+}
+
+function AnimatedConfetti({ item, index, width, height }: { item: string; index: number; width: number; height: number }) {
+  const left = (index * 47 + 13) % Math.max(1, width - 32);
+  const top = (index * 83 + 5) % Math.max(1, height - 40);
+  return <Animated.Text entering={FadeInDown.delay((index % 10) * 50).duration(420)} style={{ position: 'absolute', left, top, fontSize: index % 3 === 0 ? 30 : 24 }}>{item}</Animated.Text>;
 }

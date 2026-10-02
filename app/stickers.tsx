@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { Text } from '../components/AppText';
 import { router } from 'expo-router';
 import { animals } from '../data/content';
 import { getLearningLetters } from '../data/learningLetters';
-import { Header, Screen } from '../components/ui';
+import { BigButton, BottomSheet, Header, Screen } from '../components/ui';
 import { useAppStore } from '../store/useAppStore';
 import { translateText } from '../localization';
 import { AnimalIllustration } from '../components/AnimalIllustration';
 import { getStickerFact } from '../data/stickerFacts';
+import { shareCelebration } from '../services/sharing';
 
 export default function Stickers() {
   const { stickers, stars, premium, language } = useAppStore();
+  const [selectedAnimal, setSelectedAnimal] = useState<(typeof animals)[number] | null>(null);
   const alphabet = getLearningLetters(language);
   const visibleAnimals = animals.slice(0, premium ? 26 : 6);
   const earnedCount = visibleAnimals.filter(animal => stickers.includes(animal.name)).length;
@@ -41,17 +43,15 @@ export default function Stickers() {
         </View>
       </View>
 
+      <BigButton label="Celebrate with friends" emoji="🎉" color="#DDF4E8" onPress={() => void shareCelebration(stars)} />
+
       <View style={{ width: '100%', maxWidth: 760, gap: 11, alignSelf: 'center' }}>
         {visibleAnimals.map(animal => {
           const earned = stickers.includes(animal.name);
           const letter = alphabet.find(item => item.animal === animal.name);
-          const letterIndex = letter ? alphabet.findIndex(item => item.upper === letter.upper) : -1;
-          const needsPremium = Boolean(letter && !premium && letterIndex >= 6);
-          const route = letter ? (needsPremium ? '/parent-gate' : '/find-letter') : '/counting';
           const instruction = letter
             ? `Find ${letter.upper} in Find the Letter. Tap it to earn the ${animal.name} sticker.`
             : `Play Count & Feed for a star and a surprise sticker. Keep playing to collect ${animal.name}.`;
-          const buttonLabel = needsPremium ? 'Ask a grown-up' : letter ? 'Play letter challenge' : 'Play Count & Feed';
 
           return (
             <View key={animal.name} style={{ width: '100%', padding: 14, borderRadius: 23, backgroundColor: earned ? '#FFFFFF' : '#FFFFFFD9', borderWidth: earned ? 2 : 1, borderColor: earned ? '#B8E5C6' : '#E4EDF0', flexDirection: 'row', alignItems: 'center', gap: 13 }}>
@@ -64,25 +64,52 @@ export default function Stickers() {
                   <Text style={{ fontSize: 10, fontWeight: '900', color: earned ? '#287344' : '#788B95', backgroundColor: earned ? '#E4F7E9' : '#F0F4F5', paddingHorizontal: 9, paddingVertical: 5, borderRadius: 12 }}>{earned ? 'COLLECTED ✓' : 'NOT YET'}</Text>
                 </View>
                 {earned ? (
-                  <Text translate={false} style={{ fontSize: 13, lineHeight: 19, fontWeight: '700', color: '#526C7B', marginTop: 2 }}>{getStickerFact(animal.name, language)}</Text>
+                  <Text style={{ fontSize: 13, fontWeight: '800', color: '#4D8A61', marginTop: 2 }}>Tap below to learn something fun!</Text>
                 ) : (
                   <>
                     <Text style={{ fontSize: 13, lineHeight: 18, fontWeight: '600', color: '#526C7B' }}>{instruction}</Text>
-                    <Pressable
-                      accessibilityRole="button"
-                      accessibilityLabel={translateText(`${buttonLabel} to earn ${animal.name} sticker`, language)}
-                      onPress={() => router.push(route as never)}
-                      style={{ alignSelf: 'flex-start', marginTop: 4, paddingHorizontal: 13, paddingVertical: 8, borderRadius: 16, backgroundColor: '#DFF3FC' }}
-                    >
-                      <Text style={{ fontSize: 12, fontWeight: '900', color: '#244968' }}>{buttonLabel}  ›</Text>
-                    </Pressable>
                   </>
                 )}
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={translateText(`Interesting facts about ${animal.name}`, language)}
+                  onPress={() => setSelectedAnimal(animal)}
+                  style={{ alignSelf: 'flex-start', marginTop: 4, paddingHorizontal: 13, paddingVertical: 8, borderRadius: 16, backgroundColor: '#DFF3FC' }}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: '900', color: '#244968' }}>Interesting facts  ›</Text>
+                </Pressable>
               </View>
             </View>
           );
         })}
       </View>
+
+      <BottomSheet
+        visible={Boolean(selectedAnimal)}
+        onClose={() => setSelectedAnimal(null)}
+        title={selectedAnimal ? `Fun facts about ${selectedAnimal.name}` : 'Animal facts'}
+      >
+        {selectedAnimal && (() => {
+          const earned = stickers.includes(selectedAnimal.name);
+          const letter = alphabet.find(item => item.animal === selectedAnimal.name);
+          const letterIndex = letter ? alphabet.findIndex(item => item.upper === letter.upper) : -1;
+          const needsPremium = Boolean(letter && !premium && letterIndex >= 6);
+          const route = letter ? (needsPremium ? '/parent-gate' : '/find-letter') : '/counting';
+          const actionLabel = needsPremium ? 'Ask a grown-up' : letter ? 'Play letter challenge' : 'Play Count & Feed';
+
+          return <View style={{ alignItems: 'center', gap: 12, paddingBottom: 4 }}>
+            <View style={{ width: 112, height: 112, borderRadius: 34, backgroundColor: selectedAnimal.color, alignItems: 'center', justifyContent: 'center' }}>
+              <AnimalIllustration name={selectedAnimal.name} emoji={selectedAnimal.emoji} size={76} />
+            </View>
+            <Text style={{ fontSize: 18, fontWeight: '900', color: '#35586B' }}>Did you know?</Text>
+            <Text style={{ width: '100%', padding: 16, borderRadius: 20, backgroundColor: '#FFF0C5', fontSize: 16, lineHeight: 23, fontWeight: '800', color: '#35586B', textAlign: 'center' }}>
+              {getStickerFact(selectedAnimal.name, language)}
+            </Text>
+            {!earned && <BigButton label={actionLabel} emoji={needsPremium ? '🔒' : '🎮'} color="#DFF3FC" onPress={() => { setSelectedAnimal(null); router.push(route as never); }} />}
+            {earned && <BigButton label="Celebrate with friends" emoji="🎉" color="#DDF4E8" onPress={() => void shareCelebration(stars)} />}
+          </View>;
+        })()}
+      </BottomSheet>
 
       {!premium && <Text style={{ width: '100%', maxWidth: 760, fontSize: 12, lineHeight: 18, fontWeight: '700', textAlign: 'center', color: '#687B89' }}>More animal stickers are waiting for a grown-up to unlock.</Text>}
     </Screen>

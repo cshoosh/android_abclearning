@@ -6,7 +6,7 @@ An offline-first, toddler-friendly alphabet and animal learning app for Android 
 
 - Expo SDK 57 / React Native 0.86 / TypeScript strict mode
 - Expo Router, Reanimated runtime, Expo SQLite, Expo Speech, Zustand
-- Google Play subscriptions through RevenueCat; Google Mobile Ads is limited to an Android parent-dashboard banner
+- A one-time Google Play Premium unlock through RevenueCat; Google Mobile Ads is limited to an Android parent-dashboard banner
 - ESLint, Prettier and Jest
 
 ## Run the app
@@ -28,7 +28,7 @@ npm test
 
 ## Activities
 
-ABC lessons A–Z, generous finger tracing, 26 animal cards, find-the-letter, letter/animal matching, colors and shapes, three mini-game modes, Count & Feed, Animal Homes, Memory Match, local stars/stickers, and parent progress/settings. The free/premium limits apply to alphabet, tracing, animals, mini-game modes, and stickers. Premium is a monthly or annual Google Play subscription for ongoing access to the full learning library and removes the parent-dashboard ad. See [the interactivity research note](docs/INTERACTIVITY_RESEARCH.md) for the design rationale.
+ABC lessons A–Z, generous finger tracing, 26 animal cards, find-the-letter, letter/animal matching, colors and shapes, three mini-game modes, Count & Feed, Animal Homes, Memory Match, local stars/stickers, and parent progress/settings. The free/premium limits apply to alphabet, tracing, animals, mini-game modes, and stickers. A one-time Premium purchase unlocks the full learning library and removes the parent-dashboard ad. See [the interactivity research note](docs/INTERACTIVITY_RESEARCH.md) for the design rationale.
 
 ## Android and tablet
 
@@ -36,7 +36,7 @@ The route layout supports portrait and landscape. The home activities flow into 
 
 ## Environment configuration
 
-Copy `.env.example` to `.env` to configure production subscriptions and advertising:
+Copy `.env.example` to `.env` to configure production purchases and advertising:
 
 ```env
 EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY=
@@ -47,7 +47,7 @@ Only the RevenueCat public Android SDK key belongs in the mobile app. Never add 
 
 ## Purchases
 
-The app reads monthly and annual products from Google Play through RevenueCat, displays store-localized prices, verifies entitlement server-side, restores purchases, and removes the parent-dashboard ad for active subscribers. Configure the Play subscription, RevenueCat offering/entitlement, service-account connection and Android public SDK key as described in [docs/PURCHASE_FLOW.md](docs/PURCHASE_FLOW.md). Real billing requires a custom Android development build or Play test build; Expo Go cannot make purchases. Recommended initial Pakistan prices are PKR 199/month and PKR 1,499/year; the app itself always shows Google Play's configured localized price.
+The app reads the active lifetime product from Google Play through RevenueCat, displays the localized launch price and regular price, verifies entitlement, restores purchases, and removes the parent-dashboard ad after Premium is active. The launch and standard products are configured in Play and attached to the same RevenueCat entitlement. The Play Console's Pakistan price charming currently sets the entered PKR 999/1,299 amounts to PKR 1,000/1,300 at checkout. Real billing requires a custom Android development build or Play test build; Expo Go cannot make purchases. The app always shows Google Play's configured localized price.
 
 ## Advertising
 
@@ -59,8 +59,8 @@ The app uses the device’s text-to-speech voices for letters, words and animal 
 
 ## Privacy
 
-No child registration, camera, recording, location, contacts, social features or behavioral analytics. Child progress stays on-device. Google Mobile Ads receives Android ad requests only in the parent dashboard while Premium is inactive. Google Play and RevenueCat process adult subscription purchases, verification and restore; they receive no child nickname, profile or learning progress. See [docs/PRIVACY_ARCHITECTURE.md](docs/PRIVACY_ARCHITECTURE.md) and the [ABC Friends Privacy Policy](docs/PRIVACY_POLICY.md). Add the publisher’s legal name, postal address and telephone contact, confirm provider settings, and complete legal review and store disclosures before release.
+No child registration, camera, recording, location, contacts, social features or behavioral analytics. Child progress stays on-device. Google Mobile Ads receives Android ad requests only in the parent dashboard while Premium is inactive. Google Play and RevenueCat process adult one-time purchases, verification and restore; they receive no child nickname, profile or learning progress. See [docs/PRIVACY_ARCHITECTURE.md](docs/PRIVACY_ARCHITECTURE.md) and the [ABC Friends Privacy Policy](docs/PRIVACY_POLICY.md). Add the publisher’s legal name, postal address and telephone contact, confirm provider settings, and complete legal review and store disclosures before release.
 
 ## Production launch checklist
 
-See [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) before submission. Remaining production work includes Play Console and RevenueCat catalog setup, Android service-account connection, public SDK key configuration, end-to-end license tester verification, final legal/privacy review, on-device accessibility/performance QA, and store listing materials.
+See [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) before submission. Remaining production work includes the Android service-account connection, public SDK key configuration in release builds, end-to-end license tester verification, final legal/privacy review, on-device accessibility/performance QA, and store listing materials.

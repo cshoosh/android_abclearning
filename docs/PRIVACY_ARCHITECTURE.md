@@ -7,7 +7,7 @@
 - Speech uses the operating system text-to-speech engine. No audio is recorded or uploaded.
 - The app has no online account or cloud progress backup. Families can use all learning activities without signing in.
 - Google Mobile Ads is linked only into Android builds for a banner shown in the parent-gated dashboard while Premium is inactive. Requests are child-directed, under-age-of-consent, G-rated, and non-personalized; SDK and consent failures suppress ads. The Android Advertising ID permission is blocked. No child activity shows an ad and no ads SDK is linked into iOS builds.
-- Google Play processes adult subscription billing; RevenueCat verifies transactions and serves active entitlement status. Neither receives the child's nickname, profile, or learning progress. Premium status is never trusted from local storage.
+- Google Play processes adult one-time purchase billing; RevenueCat verifies transactions and serves active entitlement status. Neither receives the child's nickname, profile, or learning progress. Premium status is never trusted from local storage.
 
 ## Before release
 
