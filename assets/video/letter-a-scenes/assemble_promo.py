@@ -118,7 +118,17 @@ def render_trace_video(frames: int, outfile: Path) -> None:
 
 def render_end_card(frames: int, outfile: Path) -> None:
     source = SOURCE / "abc-friends-end-card.png"
-    run(["ffmpeg", "-y", "-loop", "1", "-i", str(source), "-vf", f"scale=1920:1080,fps={FPS},format=yuv420p", "-an", "-frames:v", str(frames), "-r", str(FPS), "-c:v", "libx264", "-preset", "fast", "-crf", "18", str(outfile)])
+    alfie_clip = GENERATED / "scene-04.mp4"
+    graph = (
+        "[0:v]drawbox=x=190:y=220:w=220:h=220:color=#EAF7FC:t=fill,format=yuv420p[card];"
+        f"[1:v]scale=220:124,fps={FPS},trim=end_frame={frames},setpts=PTS-STARTPTS[characters];"
+        "[card][characters]overlay=x=190:y=268:shortest=1,format=yuv420p[out]"
+    )
+    run([
+        "ffmpeg", "-y", "-loop", "1", "-i", str(source), "-i", str(alfie_clip),
+        "-filter_complex", graph, "-map", "[out]", "-an", "-frames:v", str(frames), "-r", str(FPS),
+        "-c:v", "libx264", "-preset", "fast", "-crf", "18", str(outfile),
+    ])
 
 
 def main() -> None:
