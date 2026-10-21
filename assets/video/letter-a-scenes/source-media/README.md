@@ -1,11 +1,12 @@
 # Source media for the Uppercase A promo
 
-These files are copies of existing ABC Friends project media, not newly generated or fabricated app screens.
+The app imagery here is copied from genuine ABC Friends captures. It is framed as a portrait device screen so the complete controls and A experience are visible; no UI was recreated.
 
-- `../animals/alligator.png` — Alfie/alligator mascot source, copied from `/Users/syed.shahnawaz/Projects/ABCKids/assets/animals/alligator.png` (verified identical).
-- `abc-friends-gameplay-preview.mp4` — genuine gameplay capture from `/Users/syed.shahnawaz/Projects/ABCKids/assets/play-store/abc-friends-gameplay-preview.mp4`. The uppercase A tracing interaction appears around 7–10 seconds; use only that A tracing portion for the promo. Other parts of the source preview show other content.
-- `tracing-screen-uppercase-a.png` — genuine tracing screen capture from `/Users/syed.shahnawaz/Projects/ABCKids/assets/play-store/screenshots/04-trace-letters-screen.png`. It shows the uppercase A canvas; frame/crop with the A canvas prominent.
-- `learn-screen-uppercase-a-apple-alligator.png` — genuine Learn ABC screen from `/Users/syed.shahnawaz/Projects/ABCKids/assets/play-store/screenshots/02-learn-abc.png`, showing uppercase A, apple, and Meet Alligator.
-- `abc-friends-end-card.png` — official end card from `/Users/syed.shahnawaz/Projects/ABCKids/assets/play-store/abc-friends-end-card.png`.
+- `tracing-screen-uppercase-a.png` — real Trace a Letter app screen, with uppercase A selected.
+- `trace-a-gameplay.mp4` — real tracing interaction. Only its first 2.5 seconds are used; later frames switch to the Animal Friends list.
+- `learn-screen-uppercase-a-apple-alligator.png` — real Learn ABC screen showing A, apple, and the Meet Alligator control.
+- `abc-friends-end-card.png` — official end card. The app icon slot is filled by the existing A-and-Alfie animation for this promo.
+- `abc-friends-gentle-loop.mp3` — the app's existing original gentle instrumental theme; its source and prompt are documented in `assets/music/README.md` in the app repository.
+- `abc-friends-gameplay-preview.mp4` and `abc-friends-playful-theme-loop.mp3` are retained as source references but are not used in the final cut. The gameplay preview includes unrelated app pages and the playful track was not the selected promo bed.
 
-No live simulator screen was captured: an iOS simulator is booted, but ABC Friends (`com.abckids.learning`) is not installed on it. The existing Find the Letter screenshot (`05-find-letter-screen.png`) currently shows B with B/C/E/F choices, so it was deliberately excluded from promo media because it conflicts with the approved A-only concept. A fresh A-target Find the Letter capture is still needed for scene 09.
+The available Find the Letter capture shows B with B/C/E/F choices, so it is not used or relabelled for this A-only cut.
