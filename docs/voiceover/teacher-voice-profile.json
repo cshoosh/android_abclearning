@@ -1,0 +1,43 @@
+{
+  "profile_id": "abc-friends-teacher",
+  "status": "approved",
+  "reference_audio": "assets/voiceover/teacher-master-reference.mp3",
+  "reference_audio_sha256": "8aa29ba9697590dfa685da9a44a7fa91da534041e942957ed4ac606ee3f42196",
+  "reference_text": "Hello, little learners! Are you ready to meet a very special letter?",
+  "voice_direction": "A soft, warm adult female teacher speaking natural General Australian English. Joyful, bright, and genuinely excited to teach young children, with a warm smile in the voice. Lively and expressive while staying gentle, friendly, and clear. Natural pacing and clear Australian vowels. Avoid strong regional accent, American or British pronunciation, flat delivery, shouting, harshness, exaggerated cartoon acting, and singing.",
+  "generator": {
+    "application": "ComfyUI",
+    "comfyui_version": "0.42.0",
+    "comfyui_git_commit": "7a28332047b6af638dc6c7f72ef3481a718769fd",
+    "custom_node": "ComfyUI-QwenTTS",
+    "custom_node_git_commit": "d8122a8ba835b65fd65c113d2b273b1ad1579293",
+    "node": "AILab_Qwen3TTSVoiceClone_Advanced",
+    "model_repository": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+    "model_revision": "fd4b254389122332181a7c3db7f27e918eec64e3"
+  },
+  "inference": {
+    "model_size": "1.7B",
+    "device": "mps",
+    "precision": "fp16",
+    "language": "English",
+    "max_new_tokens": 512,
+    "do_sample": false,
+    "top_p": 0.9,
+    "top_k": 50,
+    "temperature": 0.9,
+    "repetition_penalty": 1.0,
+    "attention": "auto",
+    "x_vector_only": false,
+    "unload_models": false,
+    "seed": 246813,
+    "format": "mp3",
+    "mp3_quality": "320k"
+  },
+  "samples": [
+    "assets/voiceover/teacher-samples/01-consistency.mp3",
+    "assets/voiceover/teacher-samples/02-consistency.mp3",
+    "assets/voiceover/teacher-samples/03-consistency.mp3",
+    "assets/voiceover/teacher-samples/04-consistency.mp3",
+    "assets/voiceover/teacher-samples/05-consistency.mp3"
+  ]
+}
