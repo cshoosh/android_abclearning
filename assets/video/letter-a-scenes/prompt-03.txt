@@ -1,0 +1,7 @@
+Scene 03 — 11–16 sec
+
+Visual references: attach assets/video/letter-a-scenes/reference-a-apple.png as the scene’s start-frame reference; it combines the approved A character, backdrop, and apple design. Preserve the same sunny-yellow A, sky-blue (#E5F8FF) upper background, and warm-cream (#FFF4D4) lower ground. Apple: use one rounded bright red-orange body, one fresh green leaf, and short brown stem, matching assets/video/letter-a-scenes/reference-apple.png. Do not add other fruit or reproduce any app interface or text. Keep A larger and more prominent than the apple.
+
+Silent 16:9 landscape animation in the same bright, friendly 3D style as ABC Friends. Keep the same personified uppercase A in every clip: a clearly readable capital A with a warm sunny-yellow body, expressive eyes inside its triangular opening, a small smile, short arms and feet. A is the main character. Alfie the Alligator is A’s friendly, silent sidekick; whenever Alfie appears, match the supplied reference image at assets/animals/alligator.png and keep the character design consistent. Use gentle, simple movement, soft lighting, and pastel backgrounds. No dialogue, lip-synced speech, music, captions, logos, or extra alphabet letters. Keep the full uppercase A shape readable and prominent.
+
+Scene action: A holds a bright red apple and reacts happily. Keep A larger and more visually prominent than the apple.

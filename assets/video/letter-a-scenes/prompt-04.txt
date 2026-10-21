@@ -1,0 +1,7 @@
+Scene 04 — 16–21 sec
+
+Visual reference: attach assets/video/letter-a-scenes/reference-a-alfie.png as the start frame for the matching A + Alfie designs and background. Keep Alfie’s scales, pale belly, muzzle and face consistent with assets/animals/alligator.png. Preserve the sky-blue (#E5F8FF) upper background and warm-cream (#FFF4D4) lower ground. Do not copy the exact pose; animate a new action.
+
+Silent 16:9 landscape animation in the same bright, friendly 3D style as ABC Friends. Keep the same personified uppercase A in every clip: a clearly readable capital A with a warm sunny-yellow body, expressive eyes inside its triangular opening, a small smile, short arms and feet. A is the main character. Keep the background palette consistent across every animated clip: soft sky blue (#E5F8FF) with warm cream (#FFF4D4), gentle yellow and fresh green accents, uncluttered and softly lit. Alfie the Alligator is A’s friendly, silent sidekick; whenever Alfie appears, match the supplied reference image at assets/animals/alligator.png and keep the character design consistent. Use gentle, simple movement and soft lighting. No dialogue, lip-synced speech, music, captions, logos, or extra alphabet letters. Keep the full uppercase A shape readable and prominent.
+
+Scene action: Use the supplied Alfie the Alligator reference image at assets/animals/alligator.png to match Alfie’s appearance. Alfie enters and stands beside the same uppercase A. They smile and wave together; A remains the main focus. Keep Alfie silent.
